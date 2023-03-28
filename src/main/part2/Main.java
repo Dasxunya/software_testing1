@@ -4,5 +4,6 @@ public class Main {
         OpenAddressingHashTable oaht = new OpenAddressingHashTable(29, hm);
         oaht.put("acc");
         oaht.put("abc");
+        oaht.put("adc");
     }
 }

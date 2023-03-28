@@ -21,13 +21,14 @@ public class OpenAddressingHashTable {
         System.out.println(hash);
 
         int index = hash % size;
+        int started_index = index;
         int i = 0;
         while (data[index] != null && !data[index].equals(key)) {
             i++;
             index = switch (this.hashingMode) {
                 case STRINGS_LINEAR_PROBING -> (index + i) % size;
-                case STRINGS_DOUBLE_HASHING -> (index + i * i) % size;
-                case STRINGS_QUADRATIC_PROBING -> (index + i * hash(key)) % size;
+                case STRINGS_QUADRATIC_PROBING -> (started_index + i * i) % size;
+                case STRINGS_DOUBLE_HASHING -> (started_index + i * hash2(key)) % size;
             };
 
             if (i == size) {
@@ -43,12 +44,14 @@ public class OpenAddressingHashTable {
         int hash = hash(key);
         int index = hash % size;
         int i = 0;
+        int started_index = index;
+
         while (data[index] != null && !data[index].equals(key)) {
             i++;
             index = switch (this.hashingMode) {
                 case STRINGS_LINEAR_PROBING -> (index + i) % size;
-                case STRINGS_DOUBLE_HASHING -> (index + i * i) % size;
-                case STRINGS_QUADRATIC_PROBING -> (index + i * hash(key)) % size;
+                case STRINGS_QUADRATIC_PROBING -> (started_index + i * i) % size;
+                case STRINGS_DOUBLE_HASHING -> (started_index + i * hash2(key)) % size;
             };
             if (i == size) {
                 return null;
@@ -61,13 +64,14 @@ public class OpenAddressingHashTable {
         int hash = hash(key);
         int index = hash % size;
         int i = 0;
+        int started_index = index;
 
         while (data[index] != null && !data[index].equals(key)) {
             i++;
             index = switch (this.hashingMode) {
                 case STRINGS_LINEAR_PROBING -> (index + i) % size;
-                case STRINGS_DOUBLE_HASHING -> (index + i * i) % size;
-                case STRINGS_QUADRATIC_PROBING -> (index + i * hash(key)) % size;
+                case STRINGS_QUADRATIC_PROBING -> (started_index + i * i) % size;
+                case STRINGS_DOUBLE_HASHING -> (started_index + i * hash2(key)) % size;
             };
             if (i == size) {
                 return;
@@ -86,6 +90,14 @@ public class OpenAddressingHashTable {
         return hash;
     }
 
+    private int hash2(String key) {
+        int hash = 0;
+        for (int i = 0; i < key.length(); i++) {
+            hash = (hash + key.charAt(i)) % size;
+        }
+        return hash;
+    }
+
     public int[] getProbes() {
         return probes;
     }
@@ -94,4 +106,3 @@ public class OpenAddressingHashTable {
         Arrays.fill(probes, 0);
     }
 }
-
