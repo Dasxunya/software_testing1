@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.lang.Override;
 
 public class OpenAddressingHashTable {
 
@@ -18,7 +17,8 @@ public class OpenAddressingHashTable {
 
     public void put(String key) {
         int hash = hash(key);
-        System.out.println(hash);
+
+//        System.out.println(hash); //показать хэш ключа
 
         int index = hash % size;
         int started_index = index;
@@ -26,13 +26,14 @@ public class OpenAddressingHashTable {
         while (data[index] != null && !data[index].equals(key)) {
             i++;
             index = switch (this.hashingMode) {
-                case STRINGS_LINEAR_PROBING -> (index + i) % size;
+                case STRINGS_LINEAR_PROBING -> (started_index + i) % size;
                 case STRINGS_QUADRATIC_PROBING -> (started_index + i * i) % size;
                 case STRINGS_DOUBLE_HASHING -> (started_index + i * hash2(key)) % size;
             };
 
             if (i == size) {
-                throw new RuntimeException("Hash table is full");
+                System.out.println(Arrays.toString(data));
+                throw new UnsupportedOperationException("Hash table is full");
             }
         }
 
@@ -49,7 +50,7 @@ public class OpenAddressingHashTable {
         while (data[index] != null && !data[index].equals(key)) {
             i++;
             index = switch (this.hashingMode) {
-                case STRINGS_LINEAR_PROBING -> (index + i) % size;
+                case STRINGS_LINEAR_PROBING -> (started_index + i) % size;
                 case STRINGS_QUADRATIC_PROBING -> (started_index + i * i) % size;
                 case STRINGS_DOUBLE_HASHING -> (started_index + i * hash2(key)) % size;
             };
@@ -60,7 +61,7 @@ public class OpenAddressingHashTable {
         return data[index];
     }
 
-    public void remove(String key) {
+    public String remove(String key) {
         int hash = hash(key);
         int index = hash % size;
         int i = 0;
@@ -69,16 +70,17 @@ public class OpenAddressingHashTable {
         while (data[index] != null && !data[index].equals(key)) {
             i++;
             index = switch (this.hashingMode) {
-                case STRINGS_LINEAR_PROBING -> (index + i) % size;
+                case STRINGS_LINEAR_PROBING -> (started_index + i) % size;
                 case STRINGS_QUADRATIC_PROBING -> (started_index + i * i) % size;
                 case STRINGS_DOUBLE_HASHING -> (started_index + i * hash2(key)) % size;
             };
             if (i == size) {
-                return;
+                return key;
             }
         }
         data[index] = null;
         probes[index] = 0;
+        return key;
     }
 
 
@@ -91,6 +93,7 @@ public class OpenAddressingHashTable {
     }
 
     private int hash2(String key) {
+        /*вторая хэш-функция для определения смещения при разрешении коллизий*/
         int hash = 0;
         for (int i = 0; i < key.length(); i++) {
             hash = (hash + key.charAt(i)) % size;
@@ -102,7 +105,15 @@ public class OpenAddressingHashTable {
         return probes;
     }
 
+    public String[] getData() {
+        return data;
+    }
+
     public void clearProbes() {
         Arrays.fill(probes, 0);
+    }
+
+    public void clearData() {
+        Arrays.fill(data, null);
     }
 }
