@@ -4,11 +4,12 @@ public class ShoutSeries {
     private final int volume;
     private final String tone;
     private Boolean isReady;
-    private Smile smile;
+    private final Smile smile;
 
-    public ShoutSeries(int volume, String tone) {
+    public ShoutSeries(int volume, String tone, Smile smile) {
         this.volume = volume;
         this.tone = tone;
+        this.smile = smile;
         this.isReady = false;
     }
 
@@ -19,6 +20,10 @@ public class ShoutSeries {
         if(isReady){
             return "теперь чувствовал себя отдохнувшим и готовым к небольшой гнусности";
         } else return "не чувствовал себя отдохнувшим и готовым к небольшой гнусности";
+    }
+
+    public int getVolume(){
+        return this.volume;
     }
 
 }

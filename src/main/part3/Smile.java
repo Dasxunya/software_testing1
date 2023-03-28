@@ -1,35 +1,40 @@
-import java.util.Objects;
-
 public class Smile {
     private String speed;
     private String reason;
-    private final Boolean isForEffect;
+    private Boolean isForEffect;
 
     public Smile(Boolean ifForEffect, String speed, String reason) {
         this.isForEffect = ifForEffect;
-        this.speed = speed;
-        this.reason = reason;
 
-    }
-
-    public Smile(Boolean ifForEffect) {
-        this.isForEffect = ifForEffect;
-        if (!ifForEffect) {
-            this.speed = "очень медленно";
-            this.reason = "не мог вспомнить правильную последовательность движения мышц";
+        if (reason != null) {
+            if (!ifForEffect) {
+                this.speed = "очень медленно";
+                this.reason = "не мог вспомнить правильную последовательность движения мышц";
+            } else {
+                this.speed = speed;
+                this.reason = reason;
+            }
+        } else {
+            this.speed = "";
+            this.reason = "беспричинно";
         }
+
     }
 
     public String getSpeed() {
         if (!isForEffect) {
-            return "улыбнулся" + this.speed;
+            return "улыбнулся " + this.speed;
         } else {
-            return "стал серьезен" + this.speed;
+            return "стал серьезен " + this.speed;
         }
     }
 
     public Boolean getIsForEffect() {
         return this.isForEffect;
+    }
+
+    public void setIsForEffect(boolean isForEffect){
+        this.isForEffect = isForEffect;
     }
 
     public String getReason() {

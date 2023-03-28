@@ -4,7 +4,7 @@ public class Vogon extends AbstractPerson {
     private final String location;
 
     private final ShoutSeries shoutSeries;
-    private final Smile smile;
+    private Smile smile;
 
     public Vogon(String name, ShoutSeries shoutSeries, Smile smile) {
         this.name = name;
@@ -16,7 +16,7 @@ public class Vogon extends AbstractPerson {
 
     @Override
     public String action() {
-        return "пребывает на планете" + this.location;
+        return "пребывает у дома " + this.location;
     }
 
     @Override
@@ -28,8 +28,11 @@ public class Vogon extends AbstractPerson {
         return this.name;
     }
 
-    public String state() {
-        if (!shoutSeries.getRelax().contains("не") && smile.getSpeed().contains("медленно") && smile.getReason().contains("не мог")){
+    public void setSmiling(Smile smile){
+        this.smile = smile;
+    }
+    public String getState() {
+        if (!shoutSeries.getRelax().contains("не") || !smile.getSpeed().contains("медленно") || !smile.getReason().contains("не мог")){
             return "расстроен";
         } else return "доволен";
     }

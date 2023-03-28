@@ -9,6 +9,6 @@ public class MuscleMovement {
 
     @Override
     public String toString() {
-        return "(правильная последовательность: " + this.type + this.bodyPart + ")";
+        return "(правильная последовательность: " + this.type + " " + this.bodyPart + ")";
     }
 }
