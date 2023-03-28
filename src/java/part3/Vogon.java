@@ -1,3 +1,5 @@
+package part3;
+
 public class Vogon extends AbstractPerson {
     private final String name;
     private final String species;

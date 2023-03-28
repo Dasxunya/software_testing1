@@ -1,3 +1,5 @@
+package part3;
+
 public class MuscleMovement {
     private final String type;
     private final String bodyPart;

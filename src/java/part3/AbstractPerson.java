@@ -1,3 +1,5 @@
+package part3;
+
 import java.util.Objects;
 
 public abstract class AbstractPerson implements Capability {

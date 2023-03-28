@@ -1,3 +1,5 @@
+package part1;
+
 public class TanFunction {
     /**
      * Реализация функции тангенса как разложение в ряд тейлора

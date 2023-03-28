@@ -1,3 +1,5 @@
+package part3;
+
 public class Prisoner extends AbstractPerson{
     private int quantity;
     private String condition;

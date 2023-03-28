@@ -1,6 +1,8 @@
+package part3;
+
 public class Smile {
-    private String speed;
-    private String reason;
+    private final String speed;
+    private final String reason;
     private Boolean isForEffect;
 
     public Smile(Boolean ifForEffect, String speed, String reason) {

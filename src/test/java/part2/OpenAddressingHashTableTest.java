@@ -1,3 +1,5 @@
+package part2;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +14,7 @@ class OpenAddressingHashTableTest {
     @Test
     @DisplayName("Test adding data in hashTable")
     void put() {
-        /**putting <size> different values in 0th, 1st and 2nd modes*/
+        /*putting <size> different values in 0th, 1st and 2nd modes*/
         HashingMode hm = HashingMode.STRINGS_LINEAR_PROBING; //0th mode
 //        HashingMode hm = HashingMode.STRINGS_QUADRATIC_PROBING; //1st mode
 //        HashingMode hm = HashingMode.STRINGS_DOUBLE_HASHING; //2nd mode
@@ -53,7 +55,7 @@ class OpenAddressingHashTableTest {
         // элемента на опр. позиции все места = 1 --> их сумма равна размеру массива
         int actualSum1 = Arrays.stream(oaht1.getProbes()).sum();
 
-        /**putting <size> identical without collision values in 0th, 1st and 2nd modes (change mode in 15-17 lines)*/
+        /*putting <size> identical without collision values in 0th, 1st and 2nd modes (change mode in 15-17 lines)*/
         OpenAddressingHashTable oaht2 = new OpenAddressingHashTable(arraySize, hm);
         oaht2.clearProbes();
         oaht2.clearData();
@@ -96,7 +98,7 @@ class OpenAddressingHashTableTest {
         int aCounts = oaht2.getProbes()[position];
         String aValue = oaht2.getData()[position];
 
-        /**putting <size> identical with collision values in 0th, 1st and 2nd modes (change mode in 15-17 lines)*/
+        /*putting <size> identical with collision values in 0th, 1st and 2nd modes (change mode in 15-17 lines)*/
         OpenAddressingHashTable oaht3 = new OpenAddressingHashTable(arraySize, hm);
         oaht3.put("acc");
         oaht3.put("abc");
@@ -130,7 +132,7 @@ class OpenAddressingHashTableTest {
 
         int actualSum3 = Arrays.stream(oaht3.getProbes()).sum();
 
-        /**too many values*/
+        /*too many values*/
         OpenAddressingHashTable oaht4 = new OpenAddressingHashTable(arraySize, hm);
         oaht4.put("acc");
         oaht4.put("abc");
@@ -163,7 +165,7 @@ class OpenAddressingHashTableTest {
         oaht4.put("yc");
 
 
-        /**checking*/
+        /*checking*/
         assertEquals(arraySize, actualSum1, "вставка 29 различных значений");
         assertEquals(arraySize, aCounts, "вставка 29 одинаковых значений без коллизий");
         assertEquals("a", aValue, "проверка значения в массиве значений на позиции, выданной 'а'");
