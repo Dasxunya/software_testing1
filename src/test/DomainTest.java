@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -67,6 +66,7 @@ class DomainTest {
 
     @Test
     public void shoutSeriesTesting() {
+        smile.setIsForEffect(false);
         assertEquals(60, shoutSeries.getVolume());
         assertEquals("теперь чувствовал себя отдохнувшим и готовым к небольшой гнусности", shoutSeries.getRelax());
 

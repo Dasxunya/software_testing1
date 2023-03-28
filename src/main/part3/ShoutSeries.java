@@ -14,7 +14,7 @@ public class ShoutSeries {
     }
 
     public String getRelax(){
-        if ( !smile.getIsForEffect() && this.volume > 50 && Objects.equals(this.tone, "высокий")){
+        if (!smile.getIsForEffect() && this.volume > 50 && Objects.equals(this.tone, "высокий")){
             this.isReady = true;
         }
         if(isReady){
