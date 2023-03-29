@@ -87,19 +87,30 @@ public class OpenAddressingHashTable {
 
 
     private int hash(String key) {
-        int hash = 0;
+        int hash = 0b0;
+        int sum = 0b0;
         for (int i = 0; i < key.length(); i++) {
-            hash = (hash * 29 + key.charAt(i)) % size;
+            if (i != 0){
+                sum = sum * 16;
+            }
+            int binaryKey = Integer.parseInt(Integer.toBinaryString(key.charAt(key.length() - i - 1)), 2);
+            sum = sum + binaryKey;
+            System.out.println(sum);
         }
+        hash = sum;
+        hash = hash % size;
         return hash;
     }
 
     private int hash2(String key) {
         /*вторая хэш-функция для определения смещения при разрешении коллизий*/
+//        int hash = 0;
+//        for (int i = 0; i < key.length(); i++) {
+//            hash = (hash + key.charAt(i)) % size;
+//        }
+//        return hash;
         int hash = 0;
-        for (int i = 0; i < key.length(); i++) {
-            hash = (hash + key.charAt(i)) % size;
-        }
+        hash = 1 - hash(key)%7;
         return hash;
     }
 

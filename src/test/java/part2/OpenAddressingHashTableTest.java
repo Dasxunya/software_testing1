@@ -17,7 +17,6 @@ class OpenAddressingHashTableTest {
         /*putting <size> different values in 0th, 1st and 2nd modes*/
         HashingMode hm = HashingMode.STRINGS_LINEAR_PROBING; //0th mode
 //        HashingMode hm = HashingMode.STRINGS_QUADRATIC_PROBING; //1st mode
-//        HashingMode hm = HashingMode.STRINGS_DOUBLE_HASHING; //2nd mode
 
         OpenAddressingHashTable oaht1 = new OpenAddressingHashTable(arraySize, hm);
 
@@ -46,10 +45,10 @@ class OpenAddressingHashTableTest {
         oaht1.put("x");
         oaht1.put("y");
         oaht1.put("z");
-        oaht1.put("i");
+        oaht1.put("it");
         oaht1.put("ma");
-        oaht1.put("mb");
-        oaht1.put("mc");
+        oaht1.put("m");
+        oaht1.put("c");
 
         //проверили что при подаче разных значений нашли место каждому и в массиве присутствия
         // элемента на опр. позиции все места = 1 --> их сумма равна размеру массива
@@ -103,7 +102,7 @@ class OpenAddressingHashTableTest {
         oaht3.put("acc");
         oaht3.put("abc");
         oaht3.put("c");
-        oaht3.put("dwfasgrdc");
+        oaht3.put("rdc");
         oaht3.put("ac");
         oaht3.put("bc");
         oaht3.put("cc");
@@ -137,7 +136,7 @@ class OpenAddressingHashTableTest {
         oaht4.put("acc");
         oaht4.put("abc");
         oaht4.put("c");
-        oaht4.put("dwfasgrdc");
+        oaht4.put("rdc");
         oaht4.put("ac");
         oaht4.put("bc");
         oaht4.put("cc");
@@ -202,7 +201,7 @@ class OpenAddressingHashTableTest {
         oaht3.put("acc");
         oaht3.put("abc");
         oaht3.put("c");
-        oaht3.put("dwfasgrdc");
+        oaht3.put("rdc");
         oaht3.put("ac");
         oaht3.put("bc");
         oaht3.put("cc");
@@ -228,11 +227,11 @@ class OpenAddressingHashTableTest {
         oaht3.put("wc");
         oaht3.put("xc");
         oaht3.put("yc");
-        String getted3 = oaht3.get("dwfasgrdc");
+        String getted3 = oaht3.get("rdc");
 
         assertEquals("c", getted1, "слегка заполненый массив без коллизий");
         assertEquals("dc", getted2, "слегка заполненый массив с коллизиями");
-        assertEquals("dwfasgrdc", getted3, "целиком заполненый массив с коллизиями");
+        assertEquals("rdc", getted3, "целиком заполненый массив с коллизиями");
 
     }
 
@@ -262,7 +261,7 @@ class OpenAddressingHashTableTest {
         oaht3.put("acc");
         oaht3.put("abc");
         oaht3.put("c");
-        oaht3.put("dwfasgrdc");
+        oaht3.put("rdc");
         oaht3.put("ac");
         oaht3.put("bc");
         oaht3.put("cc");
@@ -288,8 +287,8 @@ class OpenAddressingHashTableTest {
         oaht3.put("wc");
         oaht3.put("xc");
         oaht3.put("yc");
-        oaht3.remove("dwfasgrdc");
-        boolean contained3 = Arrays.asList(oaht3.getData()).contains("dwfasgrdc");
+        oaht3.remove("rdc");
+        boolean contained3 = Arrays.asList(oaht3.getData()).contains("rdc");
 
         assertFalse(contained1);
         assertFalse(contained2);

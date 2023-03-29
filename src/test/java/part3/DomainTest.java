@@ -2,6 +2,7 @@ package part3;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import part1.TanFunction;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -91,6 +92,12 @@ class DomainTest {
         assertEquals("соплеменник Вогона", vogon.getRace());
 
         assertEquals("Статус: Вожак", vogon.influence());
+
+        vogon.addMovement(muscleMovement);
+        assertEquals(1, vogon.getMovements().size());
+        UnsupportedOperationException movementException = assertThrows(UnsupportedOperationException.class, () -> vogon.addMovement(null));
+        assertTrue(movementException.getMessage().contains("Не обнаружено движений мышц"));
+
     }
 
     @Test
@@ -98,6 +105,11 @@ class DomainTest {
         assertEquals("находится в плену", prisoner.action());
         assertEquals("Статус обнулен", prisoner.influence());
 
+        prisoner.action();
+        prisoner.action();
+        prisoner.action();
+
+        assertEquals(60, prisoner.getMood());
         assertNull(prisoner.getRace());
 
         prisoner.setRace("Umpa-Lumpa");
