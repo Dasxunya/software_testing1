@@ -30,7 +30,6 @@ public class OpenAddressingHashTable {
             index = switch (this.hashingMode) {
                 case STRINGS_LINEAR_PROBING -> (started_index + i) % size;
                 case STRINGS_QUADRATIC_PROBING -> (started_index + i * i) % size;
-                case STRINGS_DOUBLE_HASHING -> (started_index + i * hash2(key)) % size;
             };
 
             if (i == size) {
@@ -54,7 +53,6 @@ public class OpenAddressingHashTable {
             index = switch (this.hashingMode) {
                 case STRINGS_LINEAR_PROBING -> (started_index + i) % size;
                 case STRINGS_QUADRATIC_PROBING -> (started_index + i * i) % size;
-                case STRINGS_DOUBLE_HASHING -> (started_index + i * hash2(key)) % size;
             };
             if (i == size) {
                 return null;
@@ -74,7 +72,6 @@ public class OpenAddressingHashTable {
             index = switch (this.hashingMode) {
                 case STRINGS_LINEAR_PROBING -> (started_index + i) % size;
                 case STRINGS_QUADRATIC_PROBING -> (started_index + i * i) % size;
-                case STRINGS_DOUBLE_HASHING -> (started_index + i * hash2(key)) % size;
             };
             if (i == size) {
                 return key;
@@ -99,18 +96,6 @@ public class OpenAddressingHashTable {
         }
         hash = sum;
         hash = hash % size;
-        return hash;
-    }
-
-    private int hash2(String key) {
-        /*вторая хэш-функция для определения смещения при разрешении коллизий*/
-//        int hash = 0;
-//        for (int i = 0; i < key.length(); i++) {
-//            hash = (hash + key.charAt(i)) % size;
-//        }
-//        return hash;
-        int hash = 0;
-        hash = 1 - hash(key)%7;
         return hash;
     }
 

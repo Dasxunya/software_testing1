@@ -40,6 +40,7 @@ class DomainTest {
     public void toStringTesting() {
         assertEquals("(правильная последовательность: энергично спина)", muscleMovement.toString());
         assertEquals("Он сделал так не ради эффекта", smile.toString());
+        assertEquals("Он сделал так ради эффекта", unsmile.toString());
     }
 
     @Test
