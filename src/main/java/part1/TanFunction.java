@@ -5,9 +5,12 @@ public class TanFunction {
      * Реализация функции тангенса как разложение в ряд тейлора
      */
     public static double tangent(double x, double eps) {
+        x = normalizeAngle(x);
 
-        if (Math.abs(x) >= Math.PI / 2) {
-            throw new UnsupportedOperationException("x должен удовлетворять условию: abs(x) <= PI / 2");
+        if (x == Math.PI / 2) {
+            return Double.POSITIVE_INFINITY;
+        } else if (x == -Math.PI / 2) {
+            return Double.NEGATIVE_INFINITY;
         }
 
         if (eps >= 1 || eps <= 0) {
@@ -31,7 +34,7 @@ public class TanFunction {
         return result;
     }
 
-    public static double cos(double x, double epsilon){
+    public static double cos(double x, double epsilon) {
         double term = 1.0;
         double sum = 0.0;
         int i = 0;
@@ -52,6 +55,18 @@ public class TanFunction {
             result *= i;
         }
         return result;
+    }
+
+    public static double normalizeAngle(double x) {
+        final double pi = Math.PI;
+        double remainder = x % pi;
+        if (remainder >= -pi / 2 && remainder <= pi / 2) {
+            return remainder;
+        } else if (remainder > pi / 2) {
+            return remainder - pi;
+        } else {
+            return remainder + pi;
+        }
     }
 
 //    public static double tangent(double x, double eps) {

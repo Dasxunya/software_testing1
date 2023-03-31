@@ -47,17 +47,12 @@ class TanFunctionTest {
     }
 
     @Test
-    @DisplayName("Throws testing for x values")
-    void throwXTest() {
-        UnsupportedOperationException heightX = assertThrows(UnsupportedOperationException.class, () -> TanFunction.tangent(Math.PI / 2, 0.001));
-        UnsupportedOperationException lowX = assertThrows(UnsupportedOperationException.class, () -> TanFunction.tangent(-Math.PI / 2, 0.001));
-        UnsupportedOperationException moreGap = assertThrows(UnsupportedOperationException.class, () -> TanFunction.tangent(4, 0.001));
-        UnsupportedOperationException lessGap = assertThrows(UnsupportedOperationException.class, () -> TanFunction.tangent(-4, 0.001));
-
-        assertTrue(heightX.getMessage().contains("x должен удовлетворять условию: abs(x) <= PI / 2"));
-        assertTrue(lowX.getMessage().contains("x должен удовлетворять условию: abs(x) <= PI / 2"));
-        assertTrue(moreGap.getMessage().contains("x должен удовлетворять условию: abs(x) <= PI / 2"));
-        assertTrue(lessGap.getMessage().contains("x должен удовлетворять условию: abs(x) <= PI / 2"));
+    @DisplayName("Period testing for x values")
+    void periodTanTest() {
+        assertEquals(Math.tan(2.356194490192345), TanFunction.tangent(2.356194490192345, 0.001), 0.001);
+        assertEquals(Math.tan(-2.356194490192345), TanFunction.tangent(-2.356194490192345, 0.001), 0.001);
+        assertEquals(Double.POSITIVE_INFINITY, TanFunction.tangent(Math.PI / 2, 0.001), 0.001);
+        assertEquals(Double.NEGATIVE_INFINITY, TanFunction.tangent(-Math.PI / 2, 0.001), 0.001);
     }
 
     @Test
