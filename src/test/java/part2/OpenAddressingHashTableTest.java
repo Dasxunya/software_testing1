@@ -2,6 +2,7 @@ package part2;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,15 +10,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class OpenAddressingHashTableTest {
     private static final int arraySize = 29;
     int position;
+    HashingMode hm1 = HashingMode.STRINGS_LINEAR_PROBING; //0th mode
+    HashingMode hm2 = HashingMode.STRINGS_QUADRATIC_PROBING; //1st mode
 
     @Test
     @DisplayName("Test adding data in hashTable")
     void put() {
         /*putting <size> different values in 0th, 1st and 2nd modes*/
-        HashingMode hm = HashingMode.STRINGS_LINEAR_PROBING; //0th mode
-//        HashingMode hm = HashingMode.STRINGS_QUADRATIC_PROBING; //1st mode
-
-        OpenAddressingHashTable oaht1 = new OpenAddressingHashTable(arraySize, hm);
+        OpenAddressingHashTable oaht1 = new OpenAddressingHashTable(arraySize, hm1);
 
         oaht1.put("a");
         oaht1.put("b");
@@ -49,12 +49,13 @@ class OpenAddressingHashTableTest {
         oaht1.put("m");
         oaht1.put("c");
 
+
         //проверили что при подаче разных значений нашли место каждому и в массиве присутствия
         // элемента на опр. позиции все места = 1 --> их сумма равна размеру массива
         int actualSum1 = Arrays.stream(oaht1.getProbes()).sum();
 
         /*putting <size> identical without collision values in 0th, 1st and 2nd modes (change mode in 15-17 lines)*/
-        OpenAddressingHashTable oaht2 = new OpenAddressingHashTable(arraySize, hm);
+        OpenAddressingHashTable oaht2 = new OpenAddressingHashTable(arraySize, hm1);
         oaht2.clearProbes();
         oaht2.clearData();
         oaht2.put("a");
@@ -97,7 +98,7 @@ class OpenAddressingHashTableTest {
         String aValue = oaht2.getData()[position];
 
         /*putting <size> identical with collision values in 0th, 1st and 2nd modes (change mode in 15-17 lines)*/
-        OpenAddressingHashTable oaht3 = new OpenAddressingHashTable(arraySize, hm);
+        OpenAddressingHashTable oaht3 = new OpenAddressingHashTable(arraySize, hm1);
         oaht3.put("acc");
         oaht3.put("abc");
         oaht3.put("c");
@@ -131,7 +132,7 @@ class OpenAddressingHashTableTest {
         int actualSum3 = Arrays.stream(oaht3.getProbes()).sum();
 
         /*too many values*/
-        OpenAddressingHashTable oaht4 = new OpenAddressingHashTable(arraySize, hm);
+        OpenAddressingHashTable oaht4 = new OpenAddressingHashTable(arraySize, hm1);
         oaht4.put("acc");
         oaht4.put("abc");
         oaht4.put("c");
@@ -165,6 +166,7 @@ class OpenAddressingHashTableTest {
 
         /*checking*/
         assertEquals(arraySize, actualSum1, "вставка 29 различных значений");
+
         assertEquals(arraySize, aCounts, "вставка 29 одинаковых значений без коллизий");
         assertEquals("a", aValue, "проверка значения в массиве значений на позиции, выданной 'а'");
         assertEquals(arraySize, actualSum3, "вставка 29 разных значений с коллизиями");
@@ -178,25 +180,22 @@ class OpenAddressingHashTableTest {
     @Test
     @DisplayName("Test getting data from hashTable")
     void get() {
-        HashingMode hm = HashingMode.STRINGS_LINEAR_PROBING; //0th mode
-//        HashingMode hm = HashingMode.STRINGS_QUADRATIC_PROBING; //1st mode
-//        HashingMode hm = HashingMode.STRINGS_DOUBLE_HASHING; //2nd mode
 
-        OpenAddressingHashTable oaht1 = new OpenAddressingHashTable(arraySize, hm);
+        OpenAddressingHashTable oaht1 = new OpenAddressingHashTable(arraySize, hm1);
         oaht1.put("a");
         oaht1.put("b");
         oaht1.put("c");
         oaht1.put("d");
         String getted1 = oaht1.get("c");
 
-        OpenAddressingHashTable oaht2 = new OpenAddressingHashTable(arraySize, hm);
+        OpenAddressingHashTable oaht2 = new OpenAddressingHashTable(arraySize, hm1);
         oaht2.put("ac");
         oaht2.put("ebc");
         oaht2.put("dc");
         oaht2.put("adc");
         String getted2 = oaht2.get("dc");
 
-        OpenAddressingHashTable oaht3 = new OpenAddressingHashTable(arraySize, hm);
+        OpenAddressingHashTable oaht3 = new OpenAddressingHashTable(arraySize, hm1);
         oaht3.put("acc");
         oaht3.put("abc");
         oaht3.put("c");
@@ -236,11 +235,7 @@ class OpenAddressingHashTableTest {
 
     @Test
     void remove() {
-        HashingMode hm = HashingMode.STRINGS_LINEAR_PROBING; //0th mode
-//        HashingMode hm = HashingMode.STRINGS_QUADRATIC_PROBING; //1st mode
-//        HashingMode hm = HashingMode.STRINGS_DOUBLE_HASHING; //2nd mode
-
-        OpenAddressingHashTable oaht1 = new OpenAddressingHashTable(arraySize, hm);
+        OpenAddressingHashTable oaht1 = new OpenAddressingHashTable(arraySize, hm1);
         oaht1.put("a");
         oaht1.put("b");
         oaht1.put("c");
@@ -248,7 +243,7 @@ class OpenAddressingHashTableTest {
         oaht1.remove("c");
         boolean contained1 = Arrays.asList(oaht1.getData()).contains("c");
 
-        OpenAddressingHashTable oaht2 = new OpenAddressingHashTable(arraySize, hm);
+        OpenAddressingHashTable oaht2 = new OpenAddressingHashTable(arraySize, hm1);
         oaht2.put("ac");
         oaht2.put("ebc");
         oaht2.put("dc");
@@ -256,7 +251,7 @@ class OpenAddressingHashTableTest {
         oaht2.remove("ebc");
         boolean contained2 = Arrays.asList(oaht2.getData()).contains("c");
 
-        OpenAddressingHashTable oaht3 = new OpenAddressingHashTable(arraySize, hm);
+        OpenAddressingHashTable oaht3 = new OpenAddressingHashTable(arraySize, hm1);
         oaht3.put("acc");
         oaht3.put("abc");
         oaht3.put("c");
@@ -292,5 +287,87 @@ class OpenAddressingHashTableTest {
         assertFalse(contained1);
         assertFalse(contained2);
         assertFalse(contained3);
+    }
+
+
+    @Test
+    @DisplayName("Mode testing")
+    public void enumModeTesting() {
+        assertEquals(0, hm1.getEqual());
+        assertEquals(1, hm2.getEqual());
+    }
+
+    @Test
+    @DisplayName("Unique methods testing")
+    public void otherTesting() {
+        OpenAddressingHashTable oaht1 = new OpenAddressingHashTable(arraySize, hm2);
+
+        oaht1.put("a");
+        oaht1.put("abc");
+
+        int actualSum1 = Arrays.stream(oaht1.getProbes()).sum();
+        String getted1 = oaht1.get("abc");
+        oaht1.remove("abc");
+        int actualSum2 = Arrays.stream(oaht1.getProbes()).sum();
+
+        /**/
+        assertEquals(2, actualSum1);
+        assertEquals("abc", getted1);
+        assertEquals(1, actualSum2);
+        /**/
+
+        OpenAddressingHashTable oaht2 = new OpenAddressingHashTable(arraySize, hm1);
+
+        oaht2.put("a");
+        oaht2.put("abc");
+
+        int actualSum21 = Arrays.stream(oaht2.getProbes()).sum();
+        String getted2 = oaht2.get("abc");
+        oaht2.remove("abc");
+        int actualSum22 = Arrays.stream(oaht2.getProbes()).sum();
+
+        /**/
+        assertEquals("abc", getted2);
+        assertEquals(2, actualSum21);
+        assertEquals(1, actualSum22);
+        /**/
+    }
+
+    @Test
+    @DisplayName("Check null return")
+    public void nullTesting(){
+        OpenAddressingHashTable oaht3 = new OpenAddressingHashTable(arraySize, hm1);
+        oaht3.put("acc");
+        oaht3.put("abc");
+        oaht3.put("c");
+        oaht3.put("rdc");
+        oaht3.put("ac");
+        oaht3.put("bc");
+        oaht3.put("cc");
+        oaht3.put("dc");
+        oaht3.put("ec");
+        oaht3.put("fc");
+        oaht3.put("gc");
+        oaht3.put("hc");
+        oaht3.put("ic");
+        oaht3.put("jc");
+        oaht3.put("kc");
+        oaht3.put("lc");
+        oaht3.put("mc");
+        oaht3.put("nc");
+        oaht3.put("oc");
+        oaht3.put("pc");
+        oaht3.put("qc");
+        oaht3.put("rc");
+        oaht3.put("sc");
+        oaht3.put("tc");
+        oaht3.put("uc");
+        oaht3.put("vc");
+        oaht3.put("wc");
+        oaht3.put("xc");
+        oaht3.put("yc");
+
+        String gettedValue = oaht3.get("adf");
+        assertNull(gettedValue);
     }
 }

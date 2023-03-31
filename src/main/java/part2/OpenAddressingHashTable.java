@@ -61,7 +61,7 @@ public class OpenAddressingHashTable {
         return data[index];
     }
 
-    public String remove(String key) {
+    public void remove(String key) {
         int hash = hash(key);
         int index = hash % size;
         int i = 0;
@@ -74,12 +74,11 @@ public class OpenAddressingHashTable {
                 case STRINGS_QUADRATIC_PROBING -> (started_index + i * i) % size;
             };
             if (i == size) {
-                return key;
+                return;
             }
         }
         data[index] = null;
         probes[index] = 0;
-        return key;
     }
 
 
