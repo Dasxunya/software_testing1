@@ -16,7 +16,7 @@ class OpenAddressingHashTableTest {
     @Test
     @DisplayName("Test adding data in hashTable")
     void put() {
-        /*putting <size> different values in 0th, 1st and 2nd modes*/
+
         OpenAddressingHashTable oaht1 = new OpenAddressingHashTable(arraySize, hm1);
 
         oaht1.put("a");
@@ -99,35 +99,47 @@ class OpenAddressingHashTableTest {
 
         /*putting <size> identical with collision values in 0th, 1st and 2nd modes (change mode in 15-17 lines)*/
         OpenAddressingHashTable oaht3 = new OpenAddressingHashTable(arraySize, hm1);
-        oaht3.put("acc");
-        oaht3.put("abc");
-        oaht3.put("c");
-        oaht3.put("rdc");
-        oaht3.put("ac");
-        oaht3.put("bc");
-        oaht3.put("cc");
-        oaht3.put("dc");
-        oaht3.put("ec");
-        oaht3.put("fc");
-        oaht3.put("gc");
-        oaht3.put("hc");
-        oaht3.put("ic");
-        oaht3.put("jc");
-        oaht3.put("kc");
-        oaht3.put("lc");
-        oaht3.put("mc");
-        oaht3.put("nc");
-        oaht3.put("oc");
-        oaht3.put("pc");
-        oaht3.put("qc");
-        oaht3.put("rc");
-        oaht3.put("sc");
-        oaht3.put("tc");
-        oaht3.put("uc");
-        oaht3.put("vc");
-        oaht3.put("wc");
-        oaht3.put("xc");
-        oaht3.put("yc");
+
+        int[] collision = {10,
+                39,
+                68,
+                97,
+                126,
+                155,
+                184,
+                213,
+                242,
+                271,
+                300,
+                329,
+                358,
+                387,
+                416,
+                445,
+                474,
+                503,
+                532,
+                561,
+                590,
+                619,
+                648,
+                677,
+                706,
+                735,
+                764,
+                793,
+                822};
+
+        String[] ascCollision = new String[arraySize];
+        for (int i = 0; i < collision.length; i++) {
+            ascCollision[i] = Character.toString((char) collision[i]);
+        }
+
+        for (int i = 0; i < arraySize; i++) {
+            oaht3.put(ascCollision[i]);
+        }
+
+//        System.out.println(Arrays.toString(oaht3.getData())); //посмотреть на символы
 
         int actualSum3 = Arrays.stream(oaht3.getProbes()).sum();
 
@@ -166,10 +178,10 @@ class OpenAddressingHashTableTest {
 
         /*checking*/
         assertEquals(arraySize, actualSum1, "вставка 29 различных значений");
-
         assertEquals(arraySize, aCounts, "вставка 29 одинаковых значений без коллизий");
         assertEquals("a", aValue, "проверка значения в массиве значений на позиции, выданной 'а'");
         assertEquals(arraySize, actualSum3, "вставка 29 разных значений с коллизиями");
+        assertEquals("Ŧ", oaht3.get("Ŧ"), "получение значения из заполненного массива с коллизиями");
 
         UnsupportedOperationException tooMany = assertThrows(UnsupportedOperationException.class, () ->
                 oaht4.put("fgc"));
@@ -189,48 +201,14 @@ class OpenAddressingHashTableTest {
         String getted1 = oaht1.get("c");
 
         OpenAddressingHashTable oaht2 = new OpenAddressingHashTable(arraySize, hm1);
-        oaht2.put("ac");
-        oaht2.put("ebc");
-        oaht2.put("dc");
-        oaht2.put("adc");
-        String getted2 = oaht2.get("dc");
-
-        OpenAddressingHashTable oaht3 = new OpenAddressingHashTable(arraySize, hm1);
-        oaht3.put("acc");
-        oaht3.put("abc");
-        oaht3.put("c");
-        oaht3.put("rdc");
-        oaht3.put("ac");
-        oaht3.put("bc");
-        oaht3.put("cc");
-        oaht3.put("dc");
-        oaht3.put("ec");
-        oaht3.put("fc");
-        oaht3.put("gc");
-        oaht3.put("hc");
-        oaht3.put("ic");
-        oaht3.put("jc");
-        oaht3.put("kc");
-        oaht3.put("lc");
-        oaht3.put("mc");
-        oaht3.put("nc");
-        oaht3.put("oc");
-        oaht3.put("pc");
-        oaht3.put("qc");
-        oaht3.put("rc");
-        oaht3.put("sc");
-        oaht3.put("tc");
-        oaht3.put("uc");
-        oaht3.put("vc");
-        oaht3.put("wc");
-        oaht3.put("xc");
-        oaht3.put("yc");
-        String getted3 = oaht3.get("rdc");
+        oaht2.put("a");
+        oaht2.put("Õ");
+        oaht2.put("Ŧ");
+        oaht2.put("~");
+        String getted2 = oaht2.get("Ŧ");
 
         assertEquals("c", getted1, "слегка заполненый массив без коллизий");
-        assertEquals("dc", getted2, "слегка заполненый массив с коллизиями");
-        assertEquals("rdc", getted3, "целиком заполненый массив с коллизиями");
-
+        assertEquals("Ŧ", getted2, "слегка заполненый массив с коллизиями");
     }
 
     @Test
@@ -335,7 +313,7 @@ class OpenAddressingHashTableTest {
 
     @Test
     @DisplayName("Check null return")
-    public void nullTesting(){
+    public void nullTesting() {
         OpenAddressingHashTable oaht3 = new OpenAddressingHashTable(arraySize, hm1);
         oaht3.put("acc");
         oaht3.put("abc");

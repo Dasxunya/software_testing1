@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class OpenAddressingHashTable {
 
-    private String[] data;
-    private int[] probes;
+    private final String[] data;
+    private final int[] probes;
     private final int size;
 
     private final HashingMode hashingMode;
@@ -83,7 +83,6 @@ public class OpenAddressingHashTable {
 
 
     private int hash(String key) {
-        int hash = 0b0;
         int sum = 0b0;
         for (int i = 0; i < key.length(); i++) {
             if (i != 0){
@@ -93,7 +92,7 @@ public class OpenAddressingHashTable {
             sum = sum + binaryKey;
             System.out.println(sum);
         }
-        hash = sum;
+        int hash = sum;
         hash = hash % size;
         return hash;
     }
