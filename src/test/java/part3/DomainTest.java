@@ -2,7 +2,6 @@ package part3;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import part1.TanFunction;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,15 +22,15 @@ class DomainTest {
     @BeforeAll
     public static void createAll() {
         prisoner = new Prisoner(5, "пленник", "Земля");
-        muscleMovement = new MuscleMovement("энергично", "спина");
+        muscleMovement = new MuscleMovement(Speed.VIGOROUSLY, "спина");
 
         smile = new Smile(false, null, "есть");
-        smileWithParam = new Smile(true, "быстрее пули", "просто без причины");
+        smileWithParam = new Smile(true, Speed.FASTEST, "просто без причины");
         unsmile = new Smile(true, null, null);
 
-        shoutSeries = new ShoutSeries(60, "высокий", smile);
-        lowVolume = new ShoutSeries(20, "высокий", smile);
-        lowTone = new ShoutSeries(70, "низкий", smile);
+        shoutSeries = new ShoutSeries(60, Tone.HIGH, smile);
+        lowVolume = new ShoutSeries(20, Tone.OVER_HIGH, smile);
+        lowTone = new ShoutSeries(70, Tone.LOW, smile);
 
         vogon = new Vogon("Джельц", shoutSeries, smile);
     }
@@ -52,7 +51,7 @@ class DomainTest {
         assertEquals("просто без причины", smileWithParam.getReason());
 
         assertEquals("беспричинно", unsmile.getReason());
-        assertEquals("стал серьезен ", unsmile.getSpeed());
+        assertEquals("стал серьезен инфантильно", unsmile.getSpeed());
 
         smile.setIsForEffect(true);
         assertEquals("стал серьезен очень медленно", smile.getSpeed());
@@ -63,7 +62,7 @@ class DomainTest {
         assertEquals("просто без причины", smileWithParam.getReason());
 
         unsmile.setIsForEffect(false);
-        assertEquals("улыбнулся ", unsmile.getSpeed());
+        assertEquals("улыбнулся инфантильно", unsmile.getSpeed());
         assertEquals("беспричинно", unsmile.getReason());
 
     }
@@ -127,5 +126,24 @@ class DomainTest {
         assertEquals("расстроен", vogon.getState());
         vogon.setSmiling(smile);
         assertEquals("доволен", vogon.getState());
+    }
+
+    @Test
+    public void toneDescriptionTest() {
+        assertEquals("очень низкий", Tone.OVER_LOW.getDescription());
+        assertEquals("низкий", Tone.LOW.getDescription());
+        assertEquals("средний", Tone.MIDDLE.getDescription());
+        assertEquals("высокий", Tone.HIGH.getDescription());
+        assertEquals("наивысший", Tone.OVER_HIGH.getDescription());
+    }
+
+    @Test
+    public void speedEqualsTest() {
+        assertEquals(0, Speed.INFANTILE.getEqual());
+        assertEquals(20, Speed.SO_SLOW.getEqual());
+        assertEquals(40, Speed.SLOWLY.getEqual());
+        assertEquals(60, Speed.FAST.getEqual());
+        assertEquals(80, Speed.VIGOROUSLY.getEqual());
+        assertEquals(100, Speed.FASTEST.getEqual());
     }
 }

@@ -1,23 +1,24 @@
 package part3;
 
 public class Smile {
-    private final String speed;
+    private final Speed speed;
     private final String reason;
     private Boolean isForEffect;
 
-    public Smile(Boolean ifForEffect, String speed, String reason) {
+
+    public Smile(Boolean ifForEffect, Speed speed, String reason) {
         this.isForEffect = ifForEffect;
 
         if (reason != null) {
             if (!ifForEffect) {
-                this.speed = "очень медленно";
+                this.speed = Speed.SO_SLOW;
                 this.reason = "не мог вспомнить правильную последовательность движения мышц";
             } else {
                 this.speed = speed;
                 this.reason = reason;
             }
         } else {
-            this.speed = "";
+            this.speed = Speed.INFANTILE;
             this.reason = "беспричинно";
         }
 
@@ -25,9 +26,9 @@ public class Smile {
 
     public String getSpeed() {
         if (!isForEffect) {
-            return "улыбнулся " + this.speed;
+            return "улыбнулся " + this.speed.getDescription();
         } else {
-            return "стал серьезен " + this.speed;
+            return "стал серьезен " + this.speed.getDescription();
         }
     }
 
