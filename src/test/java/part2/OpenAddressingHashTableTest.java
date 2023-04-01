@@ -100,8 +100,7 @@ class OpenAddressingHashTableTest {
         /*putting <size> identical with collision values in 0th, 1st and 2nd modes (change mode in 15-17 lines)*/
         OpenAddressingHashTable oaht3 = new OpenAddressingHashTable(arraySize, hm1);
 
-        int[] collision = {10,
-                39,
+        int[] collision = {39,
                 68,
                 97,
                 126,
@@ -128,7 +127,8 @@ class OpenAddressingHashTableTest {
                 735,
                 764,
                 793,
-                822};
+                822,
+                851};
 
         String[] ascCollision = new String[arraySize];
         for (int i = 0; i < collision.length; i++) {
@@ -137,6 +137,7 @@ class OpenAddressingHashTableTest {
 
         for (int i = 0; i < arraySize; i++) {
             oaht3.put(ascCollision[i]);
+//            System.out.println(Arrays.toString(oaht3.getData())); // посмотреть как заполняется
         }
 
 //        System.out.println(Arrays.toString(oaht3.getData())); //посмотреть на символы
